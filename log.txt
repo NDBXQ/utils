@@ -1,5 +1,0 @@
-[35;24m2024-09-12 11:08:35,674 - my_logger - Event::test - DEBUG - debug message [0m
-[40;24m2024-09-12 11:08:35,674 - my_logger - Event::test - INFO - info message [0m
-[33;24m2024-09-12 11:08:35,674 - my_logger - Event::test - WARNING - warning message [0m
-[31;24m2024-09-12 11:08:35,674 - my_logger - Event::test - ERROR - error message [0m
-[31;1m2024-09-12 11:08:35,674 - my_logger - Event::test - CRITICAL - critical message [0m

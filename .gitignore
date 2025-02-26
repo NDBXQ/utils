@@ -1,0 +1,6 @@
+__pycache__/
+.env
+temp/
+nohup.out
+*.log
+.vscode/

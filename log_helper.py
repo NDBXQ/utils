@@ -146,7 +146,7 @@ class Log_Helper:
 
 
 # if __name__ == "__main__":
-#     logger = Log_Helper(logger_name="my_logger", logger_level="DEBUG", handler_lever="DEBUG", log_file="log.txt", event="test")
+#     logger = Log_Helper(logger_name="my_logger", logger_level="DEBUG", handler_lever="DEBUG", log_file="out.log", event="test")
 #     # logger = Log_Helper(logger_name="my_logger", logger_level="DEBUG", handler_lever="DEBUG", event="test")
 
 #     logger.debug("debug message")

@@ -3,14 +3,15 @@ import base64
 import requests
 import random
 import time
-
+from .log_helper import Log_Helper
+logger = Log_Helper(logger_name = __name__, logger_level ="INFO")
 # 处理时间计算装饰器
 def time_calculator(func):
-    def wrapper(*args, **kwargs):
-        start_time = time.time()
-        result = func(*args, **kwargs)
-        end_time = time.time()
-        print(f"函数 {func.__name__} 执行时间: {end_time - start_time} 秒")
+    async def wrapper(*args, **kwargs):
+        start = time.perf_counter()
+        result = await func(*args, **kwargs)
+        elapsed_time = time.perf_counter() - start
+        logger.info(f"Function {func.__name__} execution time: {elapsed_time:.2f} seconds")
         return result
     return wrapper
 
@@ -56,3 +57,15 @@ def generate_random_number(min_length, max_length):
     length = random.randint(min_length, max_length)
     # 生成随机数（包括最小和最大长度）
     return random.randint(10**(length-1), 10**length - 1)
+
+
+import random
+def create_random(n=20):
+    # 根据n动态调整随机数范围
+    min_val = 10 ** (n - 1)
+    max_val = 10 ** n - 1
+    # 生成一个在指定范围内的随机整数
+    random_number = random.randint(min_val, max_val)
+    # 将随机数转换为字符串，并确保长度为n位
+    random_number_str = str(random_number).zfill(n)
+    return random_number_str
