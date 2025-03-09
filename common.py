@@ -4,6 +4,9 @@ import requests
 import random
 import time
 from .log_helper import Log_Helper
+import asyncio
+import json
+
 logger = Log_Helper(logger_name = __name__, logger_level ="INFO")
 # 处理时间计算装饰器
 def time_calculator(func):
@@ -16,22 +19,23 @@ def time_calculator(func):
     return wrapper
 
 
-def retry_request(make_request):
+def retry_request(make_request, max_attempts=4):
     async def wrapper(*args, **kwargs):
         # print("Making request...")
-        for _ in range(3):
+        for _ in range(max_attempts):
             try:
                 response = await make_request(*args, **kwargs)
                 if response["code"] == 0:
                     return response
                 else:
-                    print("Failed to make request, retrying...")
+                    logger.info(f"Failed to make request, response: {response}, retrying...")
+                    asyncio.sleep(10)
                     continue
             except Exception as e:
-                print(f"An error occurred: {e}, {response}")
-                print("Failed to make request, retrying...")
+                logger.info(f"An error occurred: {e}")
+                logger.info("Failed to make request, retrying...")
                 continue
-        raise Exception("Failed to make request after 3 attempts")
+        raise Exception(f"Failed to make request after {max_attempts} attempts")
     return wrapper
 
 # 读取指定目录下的所有文件名
@@ -69,3 +73,10 @@ def create_random(n=20):
     # 将随机数转换为字符串，并确保长度为n位
     random_number_str = str(random_number).zfill(n)
     return random_number_str
+
+
+# 读取 json 文件
+def read_json_file(file_path):
+    with open(file_path, 'r', encoding='utf-8') as f:
+        data = json.load(f)
+    return data
