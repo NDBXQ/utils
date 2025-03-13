@@ -23,7 +23,7 @@ class Dify:
             "user": userid,
             }
             async with session.post(url=self.url, json=payload, headers=headers) as resp:
-                response = await resp.json()
+                response:dict = await resp.json()
                 return response
             
 
